@@ -53,7 +53,14 @@ public class TextArray {
         if (word.equals("PROM?")) {
             //TODO won condition
 
-            onWon();
+            for (int i = 0; i < 5; i++) {
+                onWon(i);
+//                tempSleep();
+            }
+
+            tempSleep(500);
+            answer.setText("(say yes!)");
+            answer.setVisible(true);
             gameOver = true;
 //            System.out.println("yay go u");
         } else if (row == 5) {
@@ -84,11 +91,7 @@ public class TextArray {
             }
 
             if (lost) {
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                tempSleep(1000);
                 answer.setVisible(true);
             }
 
@@ -96,25 +99,19 @@ public class TextArray {
     }
 
     // kinda irrelevant bc sleep does not work until method is returned? so find a way to stagger the letter colors
-    public static void onWon() {
-        for (int i = 0; i < 5; i++) {
+    public static void onWon(int i) {
             String str = arr[row][i].getStr();
             Key key = Keyboard.board[Keyboard.keyList.indexOf(str)];
 
-//            tempSleep();    // sleep for a second between color changes of final word
-
             arr[row][i].setColor(3);  //green for correct
             key.setColor(3);
+//            tempSleep();    // sleep for a second between color changes of final word
 
-        }
-
-        answer.setText("(say yes!)");
-        answer.setVisible(true);
     }
 
-    static void tempSleep() {
+    static void tempSleep(long i) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(i);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,6 +136,9 @@ public class TextArray {
 //                System.out.println("dummy enter more characters");
             } else {
                 col = 0;
+
+
+
                 onEnter();
                 row++;
             }
